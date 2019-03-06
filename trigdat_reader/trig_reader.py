@@ -31,7 +31,7 @@ class TrigReader(object):
     :param fine: optional argument to use trigdat fine resolution data. Defaults to False
     """
 
-    def __init__(self, trigdat_file, fine=False, time_resolved=False, verbose=True):
+    def __init__(self, trigdat_file, fine=False, time_resolved=False, verbose=True, poly_order=-1):
 
         # self._backgroundexists = False
         # self._sourceexists = False
@@ -182,9 +182,9 @@ class TrigReader(object):
 
         # self._pos_interp = PositionInterpolator(trigdat=trigdat_file)
 
-        self._create_timeseries()
+        self._create_timeseries(poly_order=poly_order)
 
-    def _create_timeseries(self):
+    def _create_timeseries(self, poly_order=-1):
         """
         create all the time series for each detector
         :return: None
@@ -248,7 +248,7 @@ class TrigReader(object):
 
             # create a time series builder which can produce plugins
 
-            tsb = TimeSeriesBuilder(name, bss2, response=tmp_drm, verbose=self._verbose)
+            tsb = TimeSeriesBuilder(name, bss2, response=tmp_drm, verbose=self._verbose, poly_order=poly_order)
 
             # attach that to the full list
 
